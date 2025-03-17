@@ -5,11 +5,15 @@ import express from 'express'
 // Importeer de Liquid package (ook als dependency via npm geïnstalleerd)
 import { Liquid } from 'liquidjs';
 
+// const Algemeen = await fetch ('https://fdnd-agency.directus.app/items/mh_shows?fields=*.*.*.*')
+const Radio = await fetch('https://fdnd-agency.directus.app/items/mh_radiostations')
+
+const RadioJSON = await Radio.json()
+
+// console.log(RadioJSON)
+
 // Maak een nieuwe Express applicatie aan, waarin we de server configureren
 const app = express()
-
-// Maak werken met data uit formulieren iets prettiger
-app.use(express.urlencoded({extended: true}))
 
 // Gebruik de map 'public' voor statische bestanden (resources zoals CSS, JavaScript, afbeeldingen en fonts)
 // Bestanden in deze map kunnen dus door de browser gebruikt worden
@@ -17,58 +21,68 @@ app.use(express.static('public'))
 
 // Stel Liquid in als 'view engine'
 const engine = new Liquid();
-app.engine('liquid', engine.express());
+app.engine('liquid', engine.express()); 
 
 // Stel de map met Liquid templates in
 // Let op: de browser kan deze bestanden niet rechtstreeks laden (zoals voorheen met HTML bestanden)
 app.set('views', './views')
 
+// homepage
+// app.get('/', async function (request, response) {
 
-console.log('Let op: Er zijn nog geen routes. Voeg hier dus eerst jouw GET en POST routes toe.')
+//   const Radio = await fetch('https://fdnd-agency.directus.app/items/mh_radiostations')
 
-/*
-// Zie https://expressjs.com/en/5x/api.html#app.get.method over app.get()
-app.get(…, async function (request, response) {
+//   const RadioJSON = await Radio.json()
+
+// response.render('homepage.liquid', {stations: RadioJSON.data} )
+// })
+
+// app.post('/', async function (request, response) {
+
+//   response.redirect(303, '/')
+// })
+
+
+// veronica page of homepage
+app.get('/veronica', async function (request, response) {
+
+  const AlgemeenVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_shows?fields=from,until,show.name,show.body,show.radiostation.name,show.users.mh_users_id.full_name,show.users.mh_users_id.cover&filter=%7B%22show%22:%7B%22radiostation%22:%7B%22name%22:%22Radio%20Veronica%22%7D%7D%7D&')
+
+  const AlgemeenVeronicaJSON = await AlgemeenVeronica.json()
+
+  response.render('veronica.liquid', {algemeen: AlgemeenVeronicaJSON.data} )
+})
+
+app.post('/', async function (request, response) {
+
+ response.redirect(303, '/')
+})
+
+// likes page veronica
+app.get('/veronica/likes', async function (req, res) {
+
+  // data & likes
+
+response.render('veronica-likes.liquid',)
+})
+
+// pagina als ie niet werkt
+
+app.use((req, res, next) => {
+  res.status(404).render('notfound.liquid');
+})
   
-  // Zie https://expressjs.com/en/5x/api.html#res.render over response.render()
-  response.render(…)
-})
-*/
 
-/*
-// Zie https://expressjs.com/en/5x/api.html#app.post.method over app.post()
-app.post(…, async function (request, response) {
 
-  // In request.body zitten alle formuliervelden die een `name` attribuut hebben in je HTML
-  console.log(request.body)
 
-  // Via een fetch() naar Directus vullen we nieuwe gegevens in
-
-  // Zie https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch over fetch()
-  // Zie https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify over JSON.stringify()
-  // Zie https://docs.directus.io/reference/items.html#create-an-item over het toevoegen van gegevens in Directus
-  // Zie https://docs.directus.io/reference/items.html#update-an-item over het veranderen van gegevens in Directus
-  await fetch(…, {
-    method: …,
-    body: JSON.stringify(…),
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
-    }
-  });
-
-  // Redirect de gebruiker daarna naar een logische volgende stap
-  // Zie https://expressjs.com/en/5x/api.html#res.redirect over response.redirect()
-  response.redirect(303, …)
-})
-*/
 
 
 // Stel het poortnummer in waar Express op moet gaan luisteren
-// Lokaal is dit poort 8000; als deze applicatie ergens gehost wordt, waarschijnlijk poort 80
+// Lokaal is dit poort 8000, als dit ergens gehost wordt, is het waarschijnlijk poort 80
 app.set('port', process.env.PORT || 8000)
 
-// Start Express op, gebruik daarbij het zojuist ingestelde poortnummer op
+// Start Express op, haal daarbij het zojuist ingestelde poortnummer op
 app.listen(app.get('port'), function () {
-  // Toon een bericht in de console
-  console.log(`Daarna kun je via http://localhost:${app.get('port')}/ jouw interactieve website bekijken.\n\nThe Web is for Everyone. Maak mooie dingen 🙂`)
+  // Toon een bericht in de console en geef het poortnummer door
+  console.log(`Application started on http://localhost:${app.get('port')}`)
 })
