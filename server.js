@@ -63,8 +63,7 @@ app.get('/veronica/likes', async function (request, response) {
 
   const AlgemeenVeronicaJSON = await AlgemeenVeronica.json()
   const LikesVeronicaJSON = await LikesVeronica.json()
-
-
+  
 response.render('veronica-likes.liquid', {algemeen: AlgemeenVeronicaJSON.data, likes: LikesVeronicaJSON.data} )
 })
 

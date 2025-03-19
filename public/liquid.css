@@ -189,6 +189,7 @@
 
             h2 {
                 font-family: var(--font-black);
+                font-size: var(--font-size-h2);
                 color: var(--veronica-color-white);
                 margin-bottom: 4px;
             }
