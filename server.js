@@ -53,29 +53,32 @@ app.get('/veronica', async function (request, response) {
   response.render('veronica.liquid', {algemeen: AlgemeenVeronicaJSON.data} )
 })
 
-app.post('/', async function (request, response) {
-
- response.redirect(303, '/')
-})
 
 // likes page veronica
-app.get('/veronica/likes', async function (req, res) {
+app.get('/veronica/likes', async function (request, response) {
 
   // data & likes
+  const AlgemeenVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_shows?fields=from,until,show.name,show.body,show.radiostation.name,show.users.mh_users_id.full_name,show.users.mh_users_id.cover&filter=%7B%22show%22:%7B%22radiostation%22:%7B%22name%22:%22Radio%20Veronica%22%7D%7D%7D&')
+  const LikesVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_messages')
 
-response.render('veronica-likes.liquid',)
+  const AlgemeenVeronicaJSON = await AlgemeenVeronica.json()
+  const LikesVeronicaJSON = await LikesVeronica.json()
+
+
+response.render('veronica-likes.liquid', {algemeen: AlgemeenVeronicaJSON.data, likes: LikesVeronicaJSON.data} )
 })
 
-// pagina als ie niet werkt
 
+// pagina als de gekozen pagina niet werkt
 app.use((req, res, next) => {
   res.status(404).render('notfound.liquid');
 })
   
 
-
-
-
+app.post('/', async function (request, response) {
+  response.redirect(303, '/')
+})
+ 
 
 // Stel het poortnummer in waar Express op moet gaan luisteren
 // Lokaal is dit poort 8000, als dit ergens gehost wordt, is het waarschijnlijk poort 80
