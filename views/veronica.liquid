@@ -27,6 +27,12 @@
                 <button>
                     <img src="/play-button.svg" alt="play button">
                 </button>
+                <form action="/veronica/likes" method="POST">
+                <input type="hidden" name="id" value="1">
+                <button type="submit">
+                    <img src="/heart.svg" alt="like button">
+                </button>
+            </form>
             </article>
         {% endfor %}
 
