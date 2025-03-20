@@ -5,6 +5,7 @@
 <section class="programma-sec">
 
         {% comment %} loop voor de programmas zelf in veronica met daarbij de tijden en artiest {% endcomment %}
+    {% if  %}
         {% for data in algemeen %}
             <article class="programma">
                 <div>
@@ -24,12 +25,15 @@
                     </div>
                     <img class="persoon-radio" src="https://fdnd-agency.directus.app/assets/{{ person.mh_users_id.cover }}" alt="cover van artiest"> 
                 {% endfor %}   
+
                 <button>
                     <img src="/play-button.svg" alt="play button">
                 </button>
-                <button>
-                    <img src="/heart.svg" alt="like button">
-                </button>
+                <form method="post">
+                    <button type="submit">
+                        <img src="/heart.svg" alt="like button">
+                    </button>
+                </form>
                 
                 {% comment %} {% for likes in likes %}
                     hello world! 

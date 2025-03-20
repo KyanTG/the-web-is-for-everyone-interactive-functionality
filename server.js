@@ -56,15 +56,39 @@ app.get('/veronica', async function (request, response) {
 
 // likes page veronica
 app.get('/veronica/likes', async function (request, response) {
-
-  // data & likes
+  
   const AlgemeenVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_shows?fields=from,until,show.name,show.body,show.radiostation.name,show.users.mh_users_id.full_name,show.users.mh_users_id.cover&filter=%7B%22show%22:%7B%22radiostation%22:%7B%22name%22:%22Radio%20Veronica%22%7D%7D%7D&')
-  const LikesVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_messages')
 
   const AlgemeenVeronicaJSON = await AlgemeenVeronica.json()
+
+response.render('veronica-likes.liquid', {algemeen: AlgemeenVeronicaJSON.data} )
+})
+
+// data & likes
+
+app.post('/veronica.likes', async function (request, response) {
+
+  console.log('wheee ik heb een post gekregen')
+ 
+
+  const LikesVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_messages')
   const LikesVeronicaJSON = await LikesVeronica.json()
-  
-response.render('veronica-likes.liquid', {algemeen: AlgemeenVeronicaJSON.data, likes: LikesVeronicaJSON.data} )
+  console.log(LikesVeronicaJSON.data)
+ 
+
+  let newLikes = LikesVeronicaJSON.data + 1
+  console.log(newLikes)
+ 
+
+  const patchLikes = await fetch('https://fdnd-agency.directus.app/items/mh_messages', {
+    method: 'POST',
+    body: JSON.stringify({
+      // info uit database
+    }),
+  })
+  console.log(patchLikes)
+ 
+  response.redirect(303, '/veronica.likes')
 })
 
 

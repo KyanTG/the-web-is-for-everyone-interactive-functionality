@@ -253,7 +253,7 @@
             background: none;
             border: none;
         }
-        button:nth-of-type(2) {
+        button:nth-of-type(2), form {
             grid-column: 3/4;
             grid-row: 3/4;
             background: none;
