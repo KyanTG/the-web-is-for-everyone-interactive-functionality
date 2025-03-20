@@ -1,6 +1,6 @@
 // Importeer het npm package Express (uit de door npm aangemaakte node_modules map)
 // Deze package is geïnstalleerd via `npm install`, en staat als 'dependency' in package.json
-import express from 'express'
+import express, { text } from 'express'
 
 // Importeer de Liquid package (ook als dependency via npm geïnstalleerd)
 import { Liquid } from 'liquidjs';
@@ -66,9 +66,9 @@ response.render('veronica-likes.liquid', {algemeen: AlgemeenVeronicaJSON.data} )
 
 // data & likes
 
-app.post('/veronica.likes', async function (request, response) {
+app.post('/veronica/likes', async function (request, response) {
 
-  console.log('wheee ik heb een post gekregen')
+  console.log('testestest')
  
 
   const LikesVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_messages')
@@ -83,13 +83,42 @@ app.post('/veronica.likes', async function (request, response) {
   const patchLikes = await fetch('https://fdnd-agency.directus.app/items/mh_messages', {
     method: 'POST',
     body: JSON.stringify({
+      from: "persoon",
+      for: "kyan",
+      text: "like",
       // info uit database
     }),
   })
   console.log(patchLikes)
  
-  response.redirect(303, '/veronica.likes')
+  response.redirect(303, '/veronica/likes')
 })
+
+
+// app.post('/veronica/likes', async (req, res) => {
+//   try {
+//       // Haal het bericht op dat geliket moet worden (bijv. met een ID)
+//       const messageId = req.body.id; // ID van het bericht dat je wilt liken
+
+//       // Haal huidige likes op uit Directus
+//       const response = await fetch(`https://fdnd-agency.directus.app/items/mh_messages/${messageId}`);
+//       const data = await response.json();
+
+//       let currentLikes = data.data.likes || 0; // Als likes niet bestaan, begin op 0
+//       let newLikes = currentLikes + 1;
+
+//       // Update het aantal likes met PATCH
+//       const updateResponse = await fetch(`https://fdnd-agency.directus.app/items/mh_messages/${messageId}`, {
+//           method: 'PATCH',
+//           headers: {
+//               'Content-Type': 'application/json'
+//           },
+//           body: JSON.stringify({ likes: newLikes })
+//       });
+
+//       response.redirect(303, '/veronica/likes')
+//      } } )  ; 
+
 
 
 // pagina als de gekozen pagina niet werkt
