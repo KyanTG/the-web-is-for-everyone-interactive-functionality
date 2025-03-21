@@ -27,6 +27,10 @@ app.engine('liquid', engine.express());
 // Let op: de browser kan deze bestanden niet rechtstreeks laden (zoals voorheen met HTML bestanden)
 app.set('views', './views')
 
+
+// Maak werken met data uit formulieren iets prettiger
+app.use(express.urlencoded({extended: true}))
+
 // homepage
 // app.get('/', async function (request, response) {
 
@@ -46,7 +50,7 @@ app.set('views', './views')
 // veronica page of homepage
 app.get('/veronica', async function (request, response) {
 
-  const AlgemeenVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_shows?fields=from,until,show.name,show.body,show.radiostation.name,show.users.mh_users_id.full_name,show.users.mh_users_id.cover&filter=%7B%22show%22:%7B%22radiostation%22:%7B%22name%22:%22Radio%20Veronica%22%7D%7D%7D&')
+  const AlgemeenVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_shows?fields=id,from,until,show.id,show.name,show.body,show.radiostation.name,show.users.mh_users_id.full_name,show.users.mh_users_id.cover&filter={%22show%22:{%22radiostation%22:{%22name%22:%22Radio%20Veronica%22}}}&')
 
   const AlgemeenVeronicaJSON = await AlgemeenVeronica.json()
 
@@ -57,67 +61,33 @@ app.get('/veronica', async function (request, response) {
 // likes page veronica
 app.get('/veronica/likes', async function (request, response) {
   
-  const AlgemeenVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_shows?fields=from,until,show.name,show.body,show.radiostation.name,show.users.mh_users_id.full_name,show.users.mh_users_id.cover&filter=%7B%22show%22:%7B%22radiostation%22:%7B%22name%22:%22Radio%20Veronica%22%7D%7D%7D&')
+  const AlgemeenVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_shows?fields=id,from,until,show.id,show.name,show.body,show.radiostation.name,show.users.mh_users_id.full_name,show.users.mh_users_id.cover&filter={%22show%22:{%22radiostation%22:{%22name%22:%22Radio%20Veronica%22}}}&')
 
   const AlgemeenVeronicaJSON = await AlgemeenVeronica.json()
 
 response.render('veronica-likes.liquid', {algemeen: AlgemeenVeronicaJSON.data} )
 })
 
-// data & likes
-
+// data & likes post
 app.post('/veronica/likes', async function (request, response) {
 
-  console.log('testestest')
- 
 
-  const LikesVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_messages')
+  const LikesVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_accounts/1?fields=id,name,liked_shows.mh_show_id.id')
   const LikesVeronicaJSON = await LikesVeronica.json()
-  console.log(LikesVeronicaJSON.data)
- 
 
-  let newLikes = LikesVeronicaJSON.data + 1
-  console.log(newLikes)
- 
-
-  const patchLikes = await fetch('https://fdnd-agency.directus.app/items/mh_messages', {
+  const patchLikes = await fetch('https://fdnd-agency.directus.app/items/mh_accounts/1?fields=id,name,liked_shows.mh_show_id.id', {
     method: 'POST',
-    body: JSON.stringify({
-      from: "persoon",
-      for: "kyan",
-      text: "like",
-      // info uit database
-    }),
-  })
-  console.log(patchLikes)
- 
-  response.redirect(303, '/veronica/likes')
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    // body: JSON.stringify
+    })
+
+    response.redirect(303, '/veronica/likes' )
 })
+  // console.log(patchLikes)
+ 
 
-
-// app.post('/veronica/likes', async (req, res) => {
-//   try {
-//       // Haal het bericht op dat geliket moet worden (bijv. met een ID)
-//       const messageId = req.body.id; // ID van het bericht dat je wilt liken
-
-//       // Haal huidige likes op uit Directus
-//       const response = await fetch(`https://fdnd-agency.directus.app/items/mh_messages/${messageId}`);
-//       const data = await response.json();
-
-//       let currentLikes = data.data.likes || 0; // Als likes niet bestaan, begin op 0
-//       let newLikes = currentLikes + 1;
-
-//       // Update het aantal likes met PATCH
-//       const updateResponse = await fetch(`https://fdnd-agency.directus.app/items/mh_messages/${messageId}`, {
-//           method: 'PATCH',
-//           headers: {
-//               'Content-Type': 'application/json'
-//           },
-//           body: JSON.stringify({ likes: newLikes })
-//       });
-
-//       response.redirect(303, '/veronica/likes')
-//      } } )  ; 
 
 
 

@@ -6,9 +6,11 @@
 
         {% comment %} loop voor de programmas zelf in veronica met daarbij de tijden en artiest {% endcomment %}
      
-        {% if newlikes.text == 0  %}
+        {% comment %} {% if n === 0  %} {% endcomment %}
             <h2>Sorry er zijn nog geen likes gegeven!</h2>
-        {% else %}
+        {% comment %} {% endif %} {% endcomment %}
+
+        {% comment %} {% else %} {% endcomment %}
 
         {% for data in algemeen %}
             <article class="programma">
@@ -32,16 +34,14 @@
 
                 <button>
                     <img src="/play-button.svg" alt="play button">
+                </button>                <form action="/veronica/likes" method="POST">
+                <input type="hidden" name="show-id" value="{{ data.show.id }}">
+                <button type="submit">
+                    <img src="/heart.svg" alt="like button">
                 </button>
-                <form action="/veronica/likes" method="POST">
-                    <input type="hidden" name="id" value="1">
-                    <button type="submit">
-                        <img src="/heart.svg" alt="like button">
-                    </button>
-                </form>
+            </form>
             </article>
         {% endfor %}
-    {% endif %}
         
 
         <section class="bekijk-ook">
