@@ -76,13 +76,33 @@ app.post('/veronica', async function (request, response) {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
     },
-    body: JSON.stringify({ }),
+    body: JSON.stringify({
+     }),
   })
     console.log(TestConsole)
     response.redirect(303, '/veronica' )
 })
 
  
+// app.post('/veronica', async function (request, response) {
+
+//   const LikedShows = await fetch ('https://fdnd-agency.directus.app/items/mh_accounts/1?fields=id,name,liked_shows.mh_show_id.id')
+//   const LikedShowsJSON = await LikedShows.json()
+
+//   let newLikes = LikedShowsJSON.data.liked_shows + 1
+
+//   let TestConsole = await fetch('https://fdnd-agency.directus.app/items/mh_accounts/1?fields=id,name,liked_shows.mh_show_id.id', {
+//     method: 'PATCH',
+//     headers: {
+//       'Content-Type': 'application/json;charset=UTF-8'
+//     },
+//     body: JSON.stringify({
+//       liked_shows: newLikes,
+//      }),
+//   })
+//     console.log(TestConsole)
+//     response.redirect(303, '/veronica' )
+// })
 
 
 

@@ -24,11 +24,13 @@
                     </div>
                     <img class="persoon-radio" src="https://fdnd-agency.directus.app/assets/{{ person.mh_users_id.cover }}" alt="cover van artiest"> 
                 {% endfor %}   
+                
                 <button>
                     <img src="/play-button.svg" alt="play button">
                 </button>
+
                 <form action="/veronica" method="POST">
-                    <input type="hidden" name="show-id" value="{{ data.liked_shows.[] }}">
+                    <input type="hidden" name="show-id" value="{{ data.show.id }}">
                     <button type="submit">
                         <img src="/heart.svg" alt="like button">
                     </button>
