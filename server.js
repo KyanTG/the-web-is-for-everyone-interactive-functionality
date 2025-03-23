@@ -69,23 +69,19 @@ response.render('veronica-likes.liquid', {algemeen: AlgemeenVeronicaJSON.data} )
 })
 
 // data & likes post
-app.post('/veronica/likes', async function (request, response) {
+app.post('/veronica', async function (request, response) {
 
-
-  const LikesVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_accounts/1?fields=id,name,liked_shows.mh_show_id.id')
-  const LikesVeronicaJSON = await LikesVeronica.json()
-
-  const patchLikes = await fetch('https://fdnd-agency.directus.app/items/mh_accounts/1?fields=id,name,liked_shows.mh_show_id.id', {
+  let TestConsole = await fetch('https://fdnd-agency.directus.app/items/mh_accounts/1?fields=id,name,liked_shows.mh_show_id.id', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
     },
-    // body: JSON.stringify
-    })
-
-    response.redirect(303, '/veronica/likes' )
+    body: JSON.stringify({ }),
+  })
+    console.log(TestConsole)
+    response.redirect(303, '/veronica' )
 })
-  // console.log(patchLikes)
+
  
 
 
