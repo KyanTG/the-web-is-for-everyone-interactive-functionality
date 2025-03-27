@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
 
@@ -165,8 +166,8 @@
     justify-content: center;
     flex-direction: column;
     row-gap: 20px;
-    height: 70%;
     overflow: scroll;
+    /* height: 65vh; */
     
 
     .programma {
@@ -265,6 +266,10 @@
 
 footer {
 
+    background-color: var(--veronica-color-white);
+    position: sticky;
+    bottom: 0;
+
     @media (min-width: 1080px) {
         display: none;
     }
@@ -275,6 +280,8 @@ footer {
         flex-direction: row;
         list-style: none;
         gap: 5%;
+        padding-block: 16px;
+
 
         a {
             display: flex;
