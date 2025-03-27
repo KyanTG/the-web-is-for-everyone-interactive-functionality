@@ -50,70 +50,49 @@ app.use(express.urlencoded({extended: true}))
 // veronica page of homepage
 app.get('/veronica', async function (request, response) {
 
-  const AlgemeenVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_shows?fields=id,from,until,show.id,show.name,show.body,show.radiostation.name,show.users.mh_users_id.full_name,show.users.mh_users_id.cover&filter={%22show%22:{%22radiostation%22:{%22name%22:%22Radio%20Veronica%22}}}&')
+  const algemeenVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_shows?fields=id,from,until,show.id,show.name,show.body,show.radiostation.name,show.users.mh_users_id.full_name,show.users.mh_users_id.cover&filter={%22show%22:{%22radiostation%22:{%22name%22:%22Radio%20Veronica%22}}}&')
+  const algemeenVeronicaJSON = await algemeenVeronica.json()
 
-  const AlgemeenVeronicaJSON = await AlgemeenVeronica.json()
+  const radioStations = await fetch('https://fdnd-agency.directus.app/items/mh_radiostations')
+  const radioStationsJSON = await radioStations.json()
 
-  response.render('veronica.liquid', {algemeen: AlgemeenVeronicaJSON.data} )
+  response.render('veronica.liquid', {algemeen: algemeenVeronicaJSON.data, radio:radioStationsJSON} )
 })
 
 
 // likes page veronica
 app.get('/veronica/likes', async function (request, response) {
   
-  const AlgemeenVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_shows?fields=id,from,until,show.id,show.name,show.body,show.radiostation.name,show.users.mh_users_id.full_name,show.users.mh_users_id.cover&filter={%22show%22:{%22radiostation%22:{%22name%22:%22Radio%20Veronica%22}}}&')
+  const algemeenVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_shows?fields=id,from,until,show.id,show.name,show.body,show.radiostation.name,show.users.mh_users_id.full_name,show.users.mh_users_id.cover&filter={%22show%22:{%22radiostation%22:{%22name%22:%22Radio%20Veronica%22}}}&')
 
-  const AlgemeenVeronicaJSON = await AlgemeenVeronica.json()
+  const algemeenVeronicaJSON = await algemeenVeronica.json()
 
-response.render('veronica-likes.liquid', {algemeen: AlgemeenVeronicaJSON.data} )
+response.render('veronica-likes.liquid', {algemeen: algemeenVeronicaJSON.data} )  // hierdoor geef je de opgevraagde data mee in de naam algemeen
 })
 
 // data & likes post
 app.post('/veronica', async function (request, response) {
 
-  //console.log(request.body)
+  //console.log(request.body) dit is om te checken of het werkt
 
-  let TestConsole = await fetch('https://fdnd-agency.directus.app/items/mh_accounts_shows', {
-    method: 'POST',
+  let testConsole = await fetch('https://fdnd-agency.directus.app/items/mh_accounts_shows', {
+    method: 'POST',                       // hierdoor worden nieuwe likes met nieuwe ids toegevoegd
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
     },
     body: JSON.stringify({
-      mh_accounts_id: 1,
-      mh_show_id: request.body.showid
+      mh_accounts_id: 1,                  //  dit is mijn account id
+      mh_show_id: request.body.showid     // id opvragen van de body vanuit de data van de shows
      }),
   })
-    // console.log(TestConsole)
-    response.redirect(303, '/veronica' )
+    // console.log(testConsole)
+    response.redirect(303, '/veronica' )  // hierdoor word je teruggestuurd naar de homepage nadat je geliked hebt
 })
-
- 
-// app.post('/veronica', async function (request, response) {
-
-//   const LikedShows = await fetch ('https://fdnd-agency.directus.app/items/mh_accounts/1?fields=id,name,liked_shows.mh_show_id.id')
-//   const LikedShowsJSON = await LikedShows.json()
-
-//   let newLikes = LikedShowsJSON.data.liked_shows + 1
-
-//   let TestConsole = await fetch('https://fdnd-agency.directus.app/items/mh_accounts/1?fields=id,name,liked_shows.mh_show_id.id', {
-//     method: 'PATCH',
-//     headers: {
-//       'Content-Type': 'application/json;charset=UTF-8'
-//     },
-//     body: JSON.stringify({
-//       liked_shows: newLikes,
-//      }),
-//   })
-//     console.log(TestConsole)
-//     response.redirect(303, '/veronica' )
-// })
-
-
 
 
 // pagina als de gekozen pagina niet werkt
 app.use((req, res, next) => {
-  res.status(404).render('notfound.liquid');
+  res.status(404).render('notfound.liquid'); // custom error page
 })
   
 
