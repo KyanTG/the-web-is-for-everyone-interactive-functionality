@@ -31,20 +31,6 @@ app.set('views', './views')
 // Maak werken met data uit formulieren iets prettiger
 app.use(express.urlencoded({extended: true}))
 
-// homepage
-// app.get('/', async function (request, response) {
-
-//   const Radio = await fetch('https://fdnd-agency.directus.app/items/mh_radiostations')
-
-//   const RadioJSON = await Radio.json()
-
-// response.render('homepage.liquid', {stations: RadioJSON.data} )
-// })
-
-// app.post('/', async function (request, response) {
-
-//   response.redirect(303, '/')
-// })
 
 
 // veronica page of homepage
@@ -81,7 +67,7 @@ app.post('/veronica', async function (request, response) {
       'Content-Type': 'application/json;charset=UTF-8'
     },
     body: JSON.stringify({
-      mh_accounts_id: 1,                  //  dit is mijn account id
+      mh_accounts_id: 1,                  // dit is mijn account id
       mh_show_id: request.body.showid     // id opvragen van de body vanuit de data van de shows
      }),
   })
