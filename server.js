@@ -48,12 +48,11 @@ app.get('/veronica', async function (request, response) {
 
 // likes page veronica
 app.get('/veronica/likes', async function (request, response) {
+
+  const likedShows = await fetch('https://fdnd-agency.directus.app/items/mh_accounts/1?fields=id,name,liked_shows.mh_show_id.*.*.*')
+  const likedShowsJSON = await likedShows.json()
   
-  const algemeenVeronica = await fetch('https://fdnd-agency.directus.app/items/mh_shows?fields=id,from,until,show.id,show.name,show.body,show.radiostation.name,show.users.mh_users_id.full_name,show.users.mh_users_id.cover&filter={%22show%22:{%22radiostation%22:{%22name%22:%22Radio%20Veronica%22}}}&')
-
-  const algemeenVeronicaJSON = await algemeenVeronica.json()
-
-response.render('veronica-likes.liquid', {algemeen: algemeenVeronicaJSON.data} )  // hierdoor geef je de opgevraagde data mee in de naam algemeen
+response.render('veronica-likes.liquid', {algemeen: likedShowsJSON.data} )  // hierdoor geef je de opgevraagde data mee in de naam algemeen
 })
 
 // data & likes post

@@ -6,32 +6,26 @@
 
         {% comment %} loop voor de programmas zelf in veronica met daarbij de tijden en artiest {% endcomment %}
      
-        {% comment %} {% if n === 0  %} {% endcomment %}
+        {% if data.liked_shows == 0 %}
             <h2>Sorry er zijn nog geen likes gegeven!</h2>
-        {% comment %} {% endif %} {% endcomment %}
+        {% else %} 
 
-        {% comment %} {% else %} {% endcomment %}
-
-        {% for data in algemeen %}
+        {% for data in algemeen.liked_shows %}
             <article class="programma">
                 <div>
-                    <h2>{{ data.show.name }}</h2>
-                    <p class="informatie-show">{{ data.show.body }}</p>
-                </div>
-                <div>
-                    <img src="/Time.svg" alt="tijd">
-                    <time datetime="{{ data.from }} {{ data.until }}" class="artiest-tijd">{{ data.from | slice: 0,5 }} - {{ data.until | slice: 0,5 }}</time>
+                    <h2>{{ data.mh_show_id.name }}</h2>
+                    <p class="informatie-show">{{ data.mh_show_id.body}}</p>
                 </div>
 
                 {% comment %} de loop in de loop zorgt ervoor dat er meerdere data word geladen zonder dat je errays er in hoeft te verwerken {% endcomment %}
-                {% for person in data.show.users %}
+                {% for person in data.liked_shows.mh_show_id.users %}
                     <div>
                         <img src="/User.svg" alt="gebruiker">
                         <p class="naam-artiest">{{ person.mh_users_id.full_name }}</p>
                     </div>
                     <img class="persoon-radio" src="https://fdnd-agency.directus.app/assets/{{ person.mh_users_id.cover }}" alt="cover van artiest"> 
                 {% endfor %}   
-{% comment %} 
+                {% comment %} 
                 <form action="/veronica" method="POST">
                     <input type="hidden" name="showid" value="{{ data.show.id }}">
                     <button type="submit">
@@ -40,6 +34,7 @@
                 </form> {% endcomment %}
             </article>
         {% endfor %}
+        {% endif %}
         
 
         <section class="bekijk-ook">
