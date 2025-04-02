@@ -18,22 +18,18 @@
                 </div>
 
                 {% comment %} de loop in de loop zorgt ervoor dat er meerdere data word geladen zonder dat je errays er in hoeft te verwerken {% endcomment %}
-                {% for person in data.liked_shows.mh_show_id %}
+                {% for person in data.mh_show_id.users %}
                     <div>
                         <img src="/User.svg" alt="gebruiker">
-                        <p class="naam-artiest">{{ person.users.mh_users_id.full_name }}</p>
+                        <p class="naam-artiest">{{ person.mh_users_id.full_name }}</p>
                     </div>
                     <img class="persoon-radio" src="https://fdnd-agency.directus.app/assets/{{ person.mh_users_id.cover }}" alt="cover van artiest"> 
                 {% endfor %}   
-                {% comment %} dit word de unlike button
 
-                <form action="/veronica" method="POST">
-                    <input type="hidden" name="showid" value="{{ data.show.id }}">
-                    <button type="submit">
-                        <img src="/heart.svg" alt="like button">
-                    </button>
-                </form> {% endcomment %}
-
+                <form action="/veronica/likes" method="POST">
+                    <input type="hidden" name="showid" value="{{ data.mh_show_id.id }}">
+                    <button class="unlike" type="submit">unlike</button>
+                </form> 
             </article>
         {% endfor %}
         {% endif %}

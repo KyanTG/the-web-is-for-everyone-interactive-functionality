@@ -249,17 +249,27 @@
             border: 2px solid var(--veronica-color-white);
         }
 
-        button:nth-of-type(1) {
+        .play {
             grid-column: 4/5;
             grid-row: 3/4;
             background: none;
             border: none;
         }
-        button:nth-of-type(2), form {
+        .like, form {
             grid-column: 3/4;
             grid-row: 3/4;
             background: none;
             border: none;
+        }
+
+        .unlike {
+            width: 48px;
+            height: 24px;
+            color: var(--veronica-color-white);
+            background-color: var(--veronica-color-secondary);
+            border: 2px solid var(--veronica-color-white);
+            border-radius: 10px;
+            
         }
     }
 }

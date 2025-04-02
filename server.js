@@ -60,7 +60,7 @@ app.post('/veronica', async function (request, response) {
 
   //console.log(request.body) dit is om te checken of het werkt
 
-  let testConsole = await fetch('https://fdnd-agency.directus.app/items/mh_accounts_shows', {
+  const testConsole = await fetch('https://fdnd-agency.directus.app/items/mh_accounts_shows', {
     method: 'POST',                       // hierdoor worden nieuwe likes met nieuwe ids toegevoegd
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
@@ -73,6 +73,19 @@ app.post('/veronica', async function (request, response) {
     // console.log(testConsole)
     response.redirect(303, '/veronica' )  // hierdoor word je teruggestuurd naar de homepage nadat je geliked hebt
 })
+
+app.post('/veronica/likes', async function (request, response) {
+
+  const deleteLike = await fetch('https://fdnd-agency.directus.app/items/mh_accounts/1?fields=id,name,liked_shows.mh_show_id.id', {
+    method: 'DELETE',         
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+  })
+
+  response.redirect(303, '/veronica/likes' )  // hierdoor word je teruggestuurd naar de likes page nadat je een like hebt verwijderd
+})
+
 
 
 // pagina als de gekozen pagina niet werkt

@@ -25,13 +25,13 @@
                     <img class="persoon-radio" src="https://fdnd-agency.directus.app/assets/{{ person.mh_users_id.cover }}" alt="cover van artiest"> 
                 {% endfor %}   
 
-                <button>
+                <button class="play">
                     <img src="/play-button.svg" alt="play button">
                 </button>
 
                 <form action="/veronica" method="POST">
                     <input type="hidden" name="showid" value="{{ data.show.id }}">
-                    <button type="submit">
+                    <button class="like" type="submit">
                         <img src="/heart.svg" alt="like button">
                     </button>
                 </form>
@@ -41,7 +41,6 @@
         <section class="bekijk-ook">
 
         </section>
-
-</section>
+    </section>
 
 {% render 'partials/foot.liquid' %}
