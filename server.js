@@ -49,7 +49,7 @@ app.get('/veronica', async function (request, response) {
 // likes page veronica
 app.get('/veronica/likes', async function (request, response) {
 
-  const likedShows = await fetch('https://fdnd-agency.directus.app/items/mh_accounts/1?fields=id,name,liked_shows.mh_show_id.*.*.*')
+  const likedShows = await fetch('https://fdnd-agency.directus.app/items/mh_accounts/7?fields=id,name,liked_shows.mh_show_id.*.*.*')
   const likedShowsJSON = await likedShows.json()
   
 response.render('veronica-likes.liquid', {algemeen: likedShowsJSON.data} )  // hierdoor geef je de opgevraagde data mee in de naam algemeen
@@ -66,7 +66,7 @@ app.post('/veronica', async function (request, response) {
       'Content-Type': 'application/json;charset=UTF-8'
     },
     body: JSON.stringify({
-      mh_accounts_id: 1,                  // dit is mijn account id
+      mh_accounts_id: 7,                  // dit is mijn account id
       mh_show_id: request.body.showid     // id opvragen van de body vanuit de data van de shows
      }),
   })
@@ -74,17 +74,17 @@ app.post('/veronica', async function (request, response) {
     response.redirect(303, '/veronica' )  // hierdoor word je teruggestuurd naar de homepage nadat je geliked hebt
 })
 
-app.post('/veronica/likes', async function (request, response) {
+// app.post('/veronica/likes', async function (request, response) {
 
-  const deleteLike = await fetch('https://fdnd-agency.directus.app/items/mh_accounts/1?fields=id,name,liked_shows.mh_show_id.id', {
-    method: 'DELETE',         
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
-    },
-  })
+//   const deleteLike = await fetch('https://fdnd-agency.directus.app/items/mh_accounts/1?fields=id,name,liked_shows.mh_show_id.id', {
+//     method: 'DELETE',         
+//     headers: {
+//       'Content-Type': 'application/json;charset=UTF-8'
+//     },
+//   })
 
-  response.redirect(303, '/veronica/likes' )  // hierdoor word je teruggestuurd naar de likes page nadat je een like hebt verwijderd
-})
+//   response.redirect(303, '/veronica/likes' )  // hierdoor word je teruggestuurd naar de likes page nadat je een like hebt verwijderd
+// })
 
 
 
