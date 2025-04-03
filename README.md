@@ -23,11 +23,19 @@ De opdracht deze sprint was om voor de radiogids een POST functie toe te voegen,
 <!-- Voeg een mooie poster visual of video toe 📸 -->
 <!-- Voeg een link toe naar GitHub Pages 🌐-->
 
+Website voor media / triple waarin je radiogidsen kan zien voor Veronica ( Slam, 100NL etc, deze komen nog ). Hierin kan je het programma zien met daarbij de personen die dit programma hosten en de tijden. Als eigen toevoeging hebben wij nog een like functie toegevoegd die je terug kan vinden in de likes pagina. Hieronder is een demonstratie te zien van hoe dat eruit ziet.
+
+
+
+https://github.com/user-attachments/assets/c96be541-e10d-4b83-86d9-7a240373d675
+
+
 
 ## Gebruik
 <!-- Bij Gebruik staat de user story, hoe het werkt en wat je er mee kan. -->
 
-Als gebruiker kan je op de website radiozenders bekijken met daarbij de tijden, ook kan je bepaalde zenders een like geven die je gaaf vind. Je kan dan naar de likes pagina gaan en hier zie je de gelikede programmas terug. 
+Op deze website kan je radiogidsen bekijken, in het kopje programmas staat zo bijvoorbeeld het hele programma. In het kopje DJ's komen de DJ's van die dag nog te staan. In het kopje likes kan je de gelikede programmas terugvinden. Je kan ook naar andere radiogidsen zoals Slam of Radio 100NL.
+
 
 ## Kenmerken
 <!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met JS gedaan en hoe? Misschien heb je iets met NodeJS gedaan, of heb je een framework of library gebruikt? -->
