@@ -67,7 +67,9 @@ https://github.com/KyanTG/the-web-is-for-everyone-interactive-functionality/blob
 
 # Progressive Enhancement Wat houd dat in?
 
-Met progressive enhancement heb je 3 stappen, eerst zorg je ervoor dat de functie werkt zonder styling etc zodat elke browser / apparaat dit kan gebruiken. Daarna kan je simpele styling gaan toepassen zodat het er wat mooier uitziet ( met deze stap bedoel ik dan kleine styling dus fonts kleuren sizes etc etc ). Als 3de stap kan je leuke animaties etc toevoegen, dit doe je als laatst omdat je de basisfunctie werkend wilt hebben. ( bij deze stap houd je rekening dat je met @supports werkt zodat als het niet ondersteunt word door de browser, de functie stap 1 dus nog werkt ).
+stap 1: core functionaliteit werkend krijgen op elke browsers / device zonder styling of andere enhancements zodat dit gebruikbaar is voor elk device.
+stap 2: simpele styling toevoegen zodat het er wat mooier utziet, denk hieraan aan bijvoorbeeld de huisstijl toevoegen aan de functionaliteit.
+stap 3: eventuele enchancements toevoegen zoals animaties of compelexere CSS styling, let op als je dit doet dat je css @support gebruikt!
 
 ## Installatie
 <!-- Bij Installatie staat hoe een andere developer aan jouw repo kan werken -->
