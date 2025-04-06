@@ -68,7 +68,9 @@ https://github.com/KyanTG/the-web-is-for-everyone-interactive-functionality/blob
 # Progressive Enhancement Wat houd dat in?
 
 stap 1: core functionaliteit werkend krijgen op elke browsers / device zonder styling of andere enhancements zodat dit gebruikbaar is voor elk device.
+
 stap 2: simpele styling toevoegen zodat het er wat mooier utziet, denk hieraan aan bijvoorbeeld de huisstijl toevoegen aan de functionaliteit.
+
 stap 3: eventuele enchancements toevoegen zoals animaties of compelexere CSS styling, let op als je dit doet dat je css @support gebruikt!
 
 ## Installatie
