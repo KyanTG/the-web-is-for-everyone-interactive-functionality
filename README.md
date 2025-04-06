@@ -73,12 +73,31 @@ stap 2: simpele styling toevoegen zodat het er wat mooier utziet, denk hieraan a
 
 stap 3: eventuele enchancements toevoegen zoals animaties of compelexere CSS styling, let op als je dit doet dat je css @support gebruikt!
 
-## Installatie
+# Installatie
 <!-- Bij Installatie staat hoe een andere developer aan jouw repo kan werken -->
 
+## Benodigheden
 
-## Bronnen
+* Node.js (versie 14 of hoger)
+* NPM (Node Package Manager, wordt samen met Node.js geïnstalleerd)
+* GitHub Desktop ( dit is wat gebruikt is voor het project, niet perse nodig )
 
-## Licentie
+## Stappen
+
+### stap 1
+
+* stap 1: ga naar de homepage van deze repository
+* stap 2: klik op de groene ( code ) knop / button
+* stap 3: klik op clone ( belangrijk ! )
+* stap 4: selecteer op my own purposes, anders pas je de algemene code aan.
+
+### 2 Open het project
+
+### installeer / gebruik
+
+* stap 1: de pakketten met npm install in je terminal.
+* stap 2: met npm start kan je daarna je server starten
+* stap 3: open in je browser de localhost die er komt testaan ( http://localhost:8000 )
+
 
 This project is licensed under the terms of the [MIT license](./LICENSE).
